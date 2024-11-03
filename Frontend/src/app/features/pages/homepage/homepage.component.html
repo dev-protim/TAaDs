@@ -1,0 +1,35 @@
+<app-header [isJobSearchForm]="true" 
+            (jobResponse)="getSearchResult($event)"
+            [paginationData]="currentPage">
+</app-header>
+<section class="pt-[50px]">
+    <div class="container">
+        <div class="section-title justify-between items-center">
+            <h2 class="flex items-center">
+                {{jobType}} Jobs
+                <!-- <span class="relative before:content-[''] before:absolute before:top-0 before:left-0 before:w-[100%] before:h-[100%] before:border before:border-gray-light before:rounded-[32px] text-[21px]/[32px] ml-[15px] p-[2px_13px]">{{ totalJobs }}</span> -->
+            </h2>
+            <!-- <div class="job-filter">
+                <button>Most Recent <i class="bi bi-filter"></i></button>
+            </div> -->
+        </div>
+        <div class="row">
+            <ng-container *ngIf="!isJobResult">
+                <div class="col-md-4 col-lg-3" *ngFor="let item of allJobs">
+                    <app-job-card [job]="item"></app-job-card>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="isJobResult">
+                <div class="col-md-4 col-lg-3" *ngFor="let item of allJobs | paginate: { id: 'foo',
+                itemsPerPage: jobResult?.page_size,
+                currentPage: jobResult?.current_page,
+                totalItems: jobResult?.total_jobs }">
+                    <app-job-card [job]="item"></app-job-card>
+                </div>
+            </ng-container>
+        </div>
+        <ng-container *ngIf="isJobResult">
+            <pagination-controls id="foo" (pageChange)="pageChanged($event)"></pagination-controls>
+        </ng-container>
+    </div>
+</section>
