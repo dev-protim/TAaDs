@@ -14,6 +14,8 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+CSV_FILE_PATH = BASE_DIR / 'courses.sqlite'
+OPENAI_API_KEY = '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'
 
 
 # Quick-start development settings - unsuitable for production
@@ -37,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'api'
 ]
 
 MIDDLEWARE = [
@@ -76,7 +80,7 @@ WSGI_APPLICATION = 'rag_system.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / 'courses.sqlite',
     }
 }
 
