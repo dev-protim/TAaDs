@@ -25,9 +25,9 @@ OPENAI_API_KEY = 'sk-proj-wA-OpipZuS8w9HaXSa7c7fR71Ob1ZZNu1ez9Ook9KQYcEQT3GNCQJj
 SECRET_KEY = 'django-insecure-4jea+$v07e*d$8w71240%r_esvq(!8o!gwuh3@d!3c!v0790q5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0']
 
 
 # Application definition
