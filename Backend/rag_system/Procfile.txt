@@ -1,1 +1,1 @@
-web: gunicorn rag_system.wsgi --log-file -
+web: gunicorn rag_system.wsgi --workers 1 --timeout 60 --log-file -
