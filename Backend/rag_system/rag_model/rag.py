@@ -4,6 +4,8 @@ from django.db import connection
 import torch
 from transformers import pipeline
 from transformers import AutoModel, AutoTokenizer, AutoModelForCausalLM, AutoModelForSeq2SeqLM, pipeline, TextStreamer
+from huggingface_hub import HfApi, HfFolder
+import os
 
 class RAGModel:
     
@@ -13,9 +15,17 @@ class RAGModel:
         self.retrieval_tokenizer = AutoTokenizer.from_pretrained("sentence-transformers/all-MiniLM-L6-v2")
         self.retrieval_model = AutoModel.from_pretrained("sentence-transformers/all-MiniLM-L6-v2")
 
+        hf_token = os.getenv("HUGGINGFACE_HUB_TOKEN")
+
         # Initialize LLaMA-2 model for generation
-        self.generator_tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-3.2-1B")
-        self.generator_model = AutoModelForCausalLM.from_pretrained("meta-llama/Llama-3.2-1B").to("cpu")
+        self.generator_tokenizer = AutoTokenizer.from_pretrained(
+            "meta-llama/Llama-3.2-1B", 
+            use_auth_token=hf_token
+        )
+        self.generator_model = AutoModelForCausalLM.from_pretrained(
+            "meta-llama/Llama-3.2-1B", 
+            use_auth_token=hf_token
+        ).to("cpu")
         
         # Set pad_token and eos_token if not defined
         if self.generator_tokenizer.pad_token is None:

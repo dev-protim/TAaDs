@@ -16,7 +16,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 CSV_FILE_PATH = BASE_DIR / 'courses.sqlite'
 OPENAI_API_KEY = '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'
-
+# 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
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
