@@ -1,12 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { HeaderComponent } from '../../../core/component/header/header.component';
 import { JobCardComponent } from '../../../core/component/job-card/job-card.component';
 import { ApiCallService } from '../../../core/services/api/api-call.service';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { SubSink } from 'subsink';
-import { Job } from '../../../core/models/job'
+import { Job } from '../../../core/models/job';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
@@ -14,7 +13,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
   standalone: true,
   imports: [HeaderComponent, JobCardComponent, CommonModule, NgxPaginationModule],
   templateUrl: './homepage.component.html',
-  styleUrl: './homepage.component.scss',
+  styleUrls: ['./homepage.component.scss'],
   providers: [ApiCallService]
 })
 export class HomepageComponent implements OnInit {
@@ -28,41 +27,56 @@ export class HomepageComponent implements OnInit {
   jobResult: any;
   isJobResult: boolean = false;
   currentPage: number = 1;
+  isLoading: boolean = false;
 
-  constructor(public apiService: ApiCallService,
-    private http: HttpClient
-  ) {
-  }
+  constructor(public apiService: ApiCallService, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.getRecentJobs();
-      
+    this.adjustLoaderSize();
   }
 
-  getRecentJobs(): any {
-    // this.latestJobs$ = this.apiService.recentJobs();
-    this.subs.sink = this.apiService.recentJobs().subscribe((response: any) => {
-      this.latestJob = response;
-      this.totalJobs = this.latestJob.total_jobs;
-      this.allJobs = this.latestJob.jobs;
-      // console.log(response);
+  getRecentJobs(): void {
+    this.subs.sink = this.apiService.recentJobs().subscribe({
+      next: (response: any) => {
+        this.latestJob = response;
+        this.totalJobs = this.latestJob.total_jobs;
+        this.allJobs = this.latestJob.jobs;
+      },
+      error: (err: HttpErrorResponse) => {
+        console.error('Erreur lors du chargement des emplois récents', err);
+      }
     });
+
+  }
+  onLoadingChanged(loading: boolean): void {
+    this.isLoading = loading;
   }
 
   getSearchResult(data: any): void {
-    this.isJobResult = true;
     this.jobResult = data;
     this.totalJobs = this.jobResult.total_jobs;
-    // this.totalJobs = data.total_jobs;
     this.allJobs = data.jobs;
-    // this.jobType = "All ";
-    console.log(this.jobResult, 'this.jobResult')
-    this.jobType = "All "
+    this.jobType = "All ";
+    this.isJobResult = true;
   }
 
   pageChanged(event: any): void {
-    console.log(event)
+    console.log(event);
     this.currentPage = event;
+  }
+
+  @HostListener('window:resize')
+  onResize(): void {
+    this.adjustLoaderSize();
+  }
+
+  adjustLoaderSize(): void {
+    const loader = document.querySelector('.loading-overlay') as HTMLElement;
+    if (loader) {
+      loader.style.width = `${window.innerWidth}px`;
+      loader.style.height = `${window.innerHeight}px`;
+    }
   }
 
   ngOnDestroy(): void {

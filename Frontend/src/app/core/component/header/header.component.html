@@ -1,8 +1,16 @@
-<section class="hero-section bg-black pt-[170px] pb-[50px]">
+<section style="background-color: black;">
   <div class="container">
+    <div style="place-items: center; padding-bottom: 20px;padding-top: 20px;">
+      <img src="assets/images/logo.png" width="100" alt="Logo"> <!-- src/assets/images/.... -->
+    </div>
+  </div>
+</section>
+<section class="hero-section bg-black ">
+  <div class="container" style="padding-bottom: 20px;;">
       <h1 class="text-white text-[40px]/[25px] font-[500]">What Can I Help With?</h1>
       <app-job-form *ngIf="isJobSearchForm"
                     (jobResponse)="getJobResponse($event)"
-                    [currentPage]="paginationData"></app-job-form>
+                    [currentPage]="paginationData"
+                    (isLoading)="onLoadingChanged($event)">></app-job-form> <!-- on recupere l'etat de isLoading depuis job-for.component-->
   </div>
 </section>

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ConfigService } from '../config/config.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
-
+import { finalize } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
@@ -21,9 +21,8 @@ export class ApiCallService {
   }
 
   getJobs(data: any): any {
-    return this.httpClient.get(`${this.baseUrl}/search/`, {
-			params: data
-		}).pipe(map((res => res)))
+    const params = new HttpParams({ fromObject: data });
+    return this.httpClient.get(`${this.baseUrl}/search/`, { params }).pipe(map((res) => res));
   }
 
   getJobDetails(id: string): any {

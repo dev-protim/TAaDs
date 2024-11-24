@@ -20,6 +20,7 @@ export class JobFormComponent {
     location: ['']
   })
   @Output() jobResponse = new EventEmitter<any>();
+  @Output() isLoading = new EventEmitter<boolean>();
 
   constructor(private fb: FormBuilder,
     private apiService: ApiCallService
@@ -40,9 +41,11 @@ export class JobFormComponent {
       page: page
     }
     console.log(data, "forms data")
+    this.isLoading.emit(true);
     this.subs.sink = this.apiService.getJobs(data).subscribe((res: any) => {
       console.log(res, 'res');
       this.jobResponse.emit(res);
+      this.isLoading.emit(false);
     })
   }
 

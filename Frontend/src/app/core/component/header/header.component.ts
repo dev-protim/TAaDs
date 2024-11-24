@@ -16,6 +16,7 @@ export class HeaderComponent {
   isLanguageClicked: boolean = false;
   activeLanguage: string = "English";
   @Output() jobResponse = new EventEmitter<any>();
+  @Output() isLoading = new EventEmitter<boolean>();
   languageList: any = [
     {
       name: "English",
@@ -39,5 +40,8 @@ export class HeaderComponent {
 
   getJobResponse(data: any): void {
     this.jobResponse.emit(data);
+  }
+  onLoadingChanged(data:any):void{
+    this.isLoading.emit(data);
   }
 }
