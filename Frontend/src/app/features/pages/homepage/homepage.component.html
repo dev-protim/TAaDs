@@ -1,52 +1,22 @@
-<!-- <app-header [isJobSearchForm]="true" (jobResponse)="getSearchResult($event)" (isLoading)="onLoadingChanged($event)"
-  [paginationData]="currentPage">
-</app-header> -->
-<!-- <On recupere l'etat de isLoading depuis HEADER.Component (isLoading)="onLoadingChanged($event)" -->
-
 <section class="py-[100px]">
-  <!-- <div *ngIf="isLoading" class="loader-overlay mt-[5px] ml-[15px] rounded-[40px]">
-    <div class="spinner"></div>
-    <div class="row">
-      <span style="place-items: center; margin-left: 20px; z-index:99999; padding-top:8px;" class="text-dark "> Please
-        wait ... We are fetching the results</span>
-    </div>
-  </div> -->
 
   <div class="container">
     <div class="section-title justify-between items-center">
       <h2><span class="bg-gradient-to-r from-[#141414] to-[#6A5ACD] inline-block text-transparent bg-clip-text">Hi there,</span><br><span class="bg-gradient-to-r from-[#141414] via-[#6A5ACD] to-[#2b85ff] inline-block text-transparent bg-clip-text">What would you like to know?</span></h2>
-      <!-- <h2 class="bg-gradient-to-r from-[#141414] via-[#6A5ACD] to-[#2b85ff] inline-block text-transparent bg-clip-text"> What would you like to know?</h2> -->
     </div>
     <div class="chat-area mt-[50px]">
       <div class="chat-area__input bg-white p-[15px_20px] rounded-[10px] relative mb-[15px]">
-        <textarea name="" id="" placeholder="Ask something.." class="w-full resize-none text-[16px]/[24px] font-[400] min-h-[7rem]"></textarea>
-        <button class="bg-primary-color w-[40px] h-[30px] rounded-[5px] text-white text-[23px]/[1] absolute right-[20px] bottom-[15px]"><i class="bi bi-arrow-right-short"></i></button>
+        <form class="flex h-[100%]" [formGroup]="myForm" (submit)="submit()">
+          <textarea name="" id="" placeholder="Ask something.." class="w-full resize-none text-[16px]/[24px] font-[400] min-h-[7rem] outline-none" formControlName="message"></textarea>
+          <button type="submit" class="bg-primary-color w-[40px] h-[30px] rounded-[5px] text-white text-[23px]/[1] absolute right-[20px] bottom-[15px]"><i class="bi bi-arrow-right-short"></i></button>
+        </form>
       </div>
       <div class="chat-area__response">
-        <h4 class="text-black text-[16px]/[24px] font-[500] mb-[15px]">Generating response...</h4>
-        <h4 class="text-black text-[16px]/[24px] font-[500] mb-[15px]">Response</h4>
-        <div class="chat-area__response--box border-[1px] border-border-color p-[15px_20px] rounded-[10px]">
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <h4 class="text-black text-[16px]/[24px] font-[500] mb-[15px]" *ngIf="isGeneration">Generating response...</h4>
+        <h4 class="text-black text-[16px]/[24px] font-[500] mb-[15px]" *ngIf="response">Response</h4>
+        <div class="chat-area__response--box border-[1px] border-border-color p-[15px_20px] rounded-[10px]" [innerHTML]="response" *ngIf="response">
         </div>
       </div>
     </div>
-    <div class="row">
-      <ng-container *ngIf="!isJobResult">
-        <div class="col-md-4 col-lg-3" *ngFor="let item of allJobs">
-          <app-job-card [job]="item"></app-job-card>
-        </div>
-      </ng-container>
-      <ng-container *ngIf="isJobResult">
-        <div class="col-md-4 col-lg-3" *ngFor="let item of allJobs | paginate: { id: 'foo',
-          itemsPerPage: jobResult?.page_size,
-          currentPage: jobResult?.current_page,
-          totalItems: jobResult?.total_jobs }">
-          <app-job-card [job]="item"></app-job-card>
-        </div>
-      </ng-container>
-    </div>
-    <ng-container *ngIf="isJobResult">
-      <pagination-controls id="foo" (pageChange)="pageChanged($event)"></pagination-controls>
-    </ng-container>
   </div>
 </section>
