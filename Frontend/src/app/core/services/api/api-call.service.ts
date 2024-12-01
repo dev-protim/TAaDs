@@ -17,7 +17,7 @@ export class ApiCallService {
    }
 
    generateResponse(data: any): any {
-    return this.httpClient.post(`${this.baseUrl}/generate`, data).pipe(
+    return this.httpClient.post(`${this.baseUrl}/ask`, data).pipe(
       map(res => res)
     );
   }
