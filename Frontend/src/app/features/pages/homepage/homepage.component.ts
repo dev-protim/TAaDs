@@ -41,7 +41,8 @@ export class HomepageComponent implements OnInit {
     this.subs.sink = this.apiService.generateResponse(data).subscribe((res: any) => {
       this.response = res.response;
       // this.response = this.response.replace(/(?<! )\n(?! )/g, '<br>');;
-      // this.response = this.response.replace(/\n/g, '<br>');
+      this.response = this.response.replace(/\n/g, '<br>');
+      this.response = this.response.replace(/\t/g, '&nbsp;&nbsp;&nbsp;&nbsp;');
       this.isGeneration = false;
     })
   }
