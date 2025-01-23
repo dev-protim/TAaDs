@@ -42,4 +42,52 @@
     .ngx-pagination .current {
         @apply bg-primary-color #{!important}
     }
+
+    .chat-area__response--box h1 {
+        @apply text-[25px] font-[600] text-[#222222] mb-[20px]
+    }
+
+    .chat-area__response--box h2 {
+        @apply text-[25px] font-[600] text-[#222222] mb-[20px]
+    }
+
+    .chat-area__response--box h3 {
+        @apply text-[25px] font-[600] text-[#222222] mb-[20px]
+    }
+
+    .chat-area__response--box h4 {
+        @apply text-[25px] font-[600] text-[#222222] mb-[20px]
+    }
+
+    .chat-area__response--box h5 {
+        @apply text-[25px] font-[600] text-[#222222] mb-[20px]
+    }
+
+    .chat-area__response--box h6 {
+        @apply text-[25px] font-[600] text-[#222222] mb-[20px]
+    }
+
+    .chat-area__response--box p {
+        @apply text-[25px] font-[400] text-[#222222] mb-[20px]
+    }
+
+    .chat-area__response--box ul, .chat-area__response--box ol {
+        @apply pl-[25px] mb-[25px]
+    }
+
+    .chat-area__response--box ul li, .chat-area__response--box ol li {
+        @apply list-[auto] mb-[15px]
+    }
+
+    .chat-area__response--box table {
+        @apply w-[100%] border-collapse mb-[20px]
+    }
+
+    .chat-area__response--box table, .chat-area__response--box th, .chat-area__response--box td {
+        @apply border-gray border-solid border-[1px] p-[10px] text-left
+    }
+
+    .chat-area__response--box code, .chat-area__response--box pre {
+        @apply bg-[#eee] p-[5px] rounded-[3px]
+    }
 }
